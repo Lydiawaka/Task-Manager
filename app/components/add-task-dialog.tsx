@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -29,6 +28,7 @@ export default function AddTaskDialog({ open, onOpenChange, onAddTask }: AddTask
       id: `task-${Date.now()}`,
       title: title.trim(),
       description: description.trim(),
+      status: "todo", 
     }
 
     onAddTask(newTask)
