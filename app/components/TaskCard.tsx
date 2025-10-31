@@ -2,9 +2,14 @@
 
 import { useState } from "react"
 import { Draggable } from "@hello-pangea/dnd"
-import { MoreHorizontal, Trash2, Edit } from "lucide-react"
+import { MoreHorizontal, Trash2, Edit, MoveRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import EditTaskDialog from "./edit-task-dialog"
 import type { Task } from "@/lib/types"
@@ -18,6 +23,11 @@ interface TaskCardProps {
 
 export default function TaskCard({ task, index, onDelete, onEdit }: TaskCardProps) {
   const [isEditOpen, setIsEditOpen] = useState(false)
+
+  const handleMove = () => {
+    if (task.status === "todo") onEdit({ status: "in-progress" })
+    else if (task.status === "in-progress") onEdit({ status: "done" })
+  }
 
   return (
     <>
@@ -44,12 +54,18 @@ export default function TaskCard({ task, index, onDelete, onEdit }: TaskCardProp
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem onClick={() => setIsEditOpen(true)}>
-                      <Edit className="mr-2 h-4 w-4" />
-                      Edit
+                      <Edit className="mr-2 h-4 w-4" /> Edit
                     </DropdownMenuItem>
+
+                    {task.status !== "done" && (
+                      <DropdownMenuItem onClick={handleMove}>
+                        <MoveRight className="mr-2 h-4 w-4" />
+                        {task.status === "todo" ? "Move to In Progress" : "Move to Done"}
+                      </DropdownMenuItem>
+                    )}
+
                     <DropdownMenuItem onClick={onDelete} className="text-destructive">
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Delete
+                      <Trash2 className="mr-2 h-4 w-4" /> Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

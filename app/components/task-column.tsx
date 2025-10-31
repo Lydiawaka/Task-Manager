@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import TaskCard from "./TaskCard"
 import type { Column, Task } from "@/lib/types"
+import type { DroppableProvided } from "@hello-pangea/dnd"
 
 interface TaskColumnProps {
   column: Column
-  provided: any
+  provided: DroppableProvided
   onAddTask: () => void
   onDeleteTask: (taskId: string) => void
   onEditTask: (taskId: string, updatedTask: Partial<Task>) => void
