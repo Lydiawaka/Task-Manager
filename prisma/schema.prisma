@@ -20,6 +20,7 @@ model Task {
   status      String
   columnId    String
   column      Column   @relation(fields: [columnId], references: [id])
+  userId      String   // Added: link each task to a Clerk user
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
