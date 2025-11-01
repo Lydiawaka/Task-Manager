@@ -10,6 +10,7 @@ datasource db {
 model Column {
   id      String  @id @default(uuid())
   title   String
+  userId  String
   tasks   Task[]
 }
 
